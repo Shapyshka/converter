@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Конвертер валют</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+</head>
+<body >
+<div align="center" >
+    <div align="center" style="font-size:25px">
+        <br>
+        <br>
+        <h1 align="center">Конвертер валют</h1>
+        <br>
+        <div style="font-size:30px">
+            <input style="width:40%;" oninput="count()" type="number" name="value1" id ="value1" placeholder="Кол-во"><br>
+            <select style="width:40%;" name="cur1" id ="cur1" oninput="count()">
+                <option value="1">Российский рубль</option>
+                <option th:each="el:${dollarandeuro}" th:value="${el.getValue()}" th:text="${el.getKey()}"></option>
+                <option th:each="el:${moneymap}" th:value="${el.getValue()}" th:text="${el.getKey()}"></option>
+            </select><br>
+            ≈<br>
+            <label style="width:40%; border:solid;" id = "value2">0</label><br>
+            <select style="width:40%;" name="cur2" id ="cur2" oninput="count()">
+                <option value="1">Российский рубль</option>
+                <option th:each="el:${dollarandeuro}" th:value="${el.getValue()}" th:text="${el.getKey()}"></option>
+                <option th:each="el:${moneymap}" th:value="${el.getValue()}" th:text="${el.getKey()}"></option>
+            </select>
+        </div>
+        <br>
+        <br>
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        </ul>
+        <h1 align="center">Курсы валют</h1>
+
+        <div th:each="el:${dollarandeuro}" align="center" style="font-size:25px">
+            1 <label th:text="${el.getKey()}"></label> = <label th:text="${el.getValue()}"></label> российских рублей <br>
+        </div>
+        <div th:each="el:${moneymap}" align="center" style="font-size:25px">
+            1 <label th:text="${el.getKey()}"></label> = <label th:text="${el.getValue()}"></label> российских рублей <br>
+        </div>
+
+        <br>
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        </ul>
+        <br>
+        <div style="font-size:17px">Источник данных: Центральный банк Российской Федерации</div>
+        <br>
+    </div >
+    <script language="JavaScript">
+            /*<![CDATA[*/
+                var value1 = document.getElementById("value1");
+                var cur1 = document.getElementById("cur1");
+                var value2 = document.getElementById("value2");
+                var cur2 = document.getElementById("cur2");
+
+                function count(){
+                    value2.textContent=(value1.value*(cur1.value/cur2.value)).toFixed(2);
+                }
+
+            /*]]>*/
+        </script>
+</div>
+</body>
+</html>
